@@ -1,0 +1,24 @@
+.landing-image{
+  width: 400px;
+}
+
+.landing-section{
+  align-items: center;
+  min-height: calc(100vh - 80px);
+  flex-wrap: wrap-reverse;
+}
+
+.second-section{
+  background-color: rgb(249, 235, 222);
+  gap: 20px;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.section-text{
+  padding: 30px 0px;
+}
+
+.section-list li{
+  margin: 20px 0px;
+}
