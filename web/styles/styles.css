@@ -1,5 +1,12 @@
 /*#8C4218*/
 
+:root{
+  --darker:#4D47C3;
+  --primary:#6C63FF;
+  --lighter:#A7A3FF;
+  --violet-white:#F0EFFF;
+}
+
 *{
   box-sizing: border-box;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -25,6 +32,11 @@ h1{
   color: rgb(71, 71, 71);
 }
 
+.section-title{
+  font-size: 36px;
+  font-weight: 900;
+}
+
 .wrapper{
   display: grid;
   grid-template: 60px 1fr 60px / 1fr;
@@ -47,15 +59,17 @@ header nav{
 
 .anchor, .button{
   text-decoration: none;
+  border: none;
   outline: none;
   padding: 10px;
   border-radius: 10px;
   color: black;
+  cursor: pointer;
   box-shadow: 0px 0px 5px 0px grey;
 }
 
 .anchor-primary, .button-primary{
-  background-color: #8C4218;
+  background-color: var(--primary);
   color: white;
 }
 
@@ -69,16 +83,33 @@ header nav{
 footer{
   display: grid;
   place-content: center;
-  background-color: #8C4218;
+  background-color: var(--darker);
   color: white;
 }
 
 img{
-  max-width: 70vw;
+  max-width: 90%;
 }
 
 ul{
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+
+.text-input{
+  outline: none;
+  border: none;
+  background-color: var(--violet-white);
+  padding: 25px 15px;
+  border-radius: 10px;
+  color: #A7A3FF;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.text-input::placeholder{
+  color: #A7A3FF;
+  font-size: 16px;
+  font-weight: 600;
 }

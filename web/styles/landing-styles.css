@@ -9,7 +9,7 @@
 }
 
 .second-section{
-  background-color: rgb(249, 235, 222);
+  background-color: rgb(244, 241, 247);
   gap: 20px;
   align-items: flex-start;
   padding: 20px;
@@ -21,4 +21,9 @@
 
 .section-list li{
   margin: 20px 0px;
+}
+
+.img-container{
+  display: flex;
+  justify-content: center;
 }
