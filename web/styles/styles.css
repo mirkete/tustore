@@ -1,5 +1,9 @@
 /*#8C4218*/
 
+::selection{
+  background: rgb(183, 182, 182);
+}
+
 :root{
   --darker:#4D47C3;
   --primary:#6C63FF;
@@ -26,7 +30,7 @@ h1{
   font-weight: 900;
 }
 
-.subtitle{
+.normal-text{
   font-size: 20px;
   font-weight: 600;
   color: rgb(71, 71, 71);
@@ -39,7 +43,7 @@ h1{
 
 .wrapper{
   display: grid;
-  grid-template: 60px 1fr 60px / 1fr;
+  grid-template: 80px 1fr 60px / 1fr;
   gap: 20px;
   background-color: white;
 }
@@ -49,7 +53,7 @@ header{
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 20px;
+  padding: 0px 30px;
 }
 
 header nav{
@@ -61,7 +65,7 @@ header nav{
   text-decoration: none;
   border: none;
   outline: none;
-  padding: 10px;
+  padding: 15px;
   border-radius: 10px;
   color: black;
   cursor: pointer;
@@ -73,11 +77,16 @@ header nav{
   color: white;
 }
 
+.anchor-secondary, .button-secondary{
+  background-color: var(--violet-white);
+  color: var(--darker);
+}
+
 .page-section{
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
-  padding: 0px 20px;
+  padding: 0px 30px;
 }
 
 footer{
@@ -88,6 +97,7 @@ footer{
 }
 
 img{
+  display: flex;
   max-width: 90%;
 }
 

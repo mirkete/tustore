@@ -20,16 +20,55 @@
         </div>
         <div class="login-division">
           <h1 class="section-title">Registrate</h1>
-          <form action="" class="login-form">
-            <input class="text-input" type="text" placeholder="Inserte su nombre de usuario">
-            <input class="text-input" type="password" placeholder="Cree una contraseña">
-            <input class="text-input" type="password" placeholder="Confirmar contraseña">
+          <form id="login-form" action="" class="login-form">
+            <input id="username" class="text-input" type="text" placeholder="Ingrese su nombre de usuario">
+            <input id="password" class="text-input" type="password" placeholder="Cree una contraseña">
+            <input id="password-confirmation" class="text-input" type="password" placeholder="Confirme su contraseña">
             <button class="button button-primary" type="submit">Enviar</button>
           </form>
         </div>
       </section>
     </main>
-    <footer></footer>
+    <footer>Footer</footer>
+    <script type="module">
+      const loginForm = document.getElementById("login-form")
+      const username = document.getElementById("username")
+      const password = document.getElementById("password")
+      const passwordConfirmation = document.getElementById("password-confirmation")
+      const actualUrl = new URL(window.location.href)
+
+      loginForm.addEventListener("submit", (e) => {
+        e.preventDefault()
+        if(username.value && password.value){
+          fetch(actualUrl.origin + "/register", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              username:username.value, 
+              password:password.value
+            })
+          })
+          .then((res) => {
+            try{
+              return res.text()
+            } catch(e){
+              throw e
+            }
+          })
+          .then((token) => {
+            localStorage.setItem("token", token)
+            window.location.replace(actualUrl.origin)
+          })
+          .catch((err) => console.error(err))
+
+          username.value = ""
+          password.value = ""
+          passwordConfirmation
+        }
+      })
+    </script>
   </div>
 </body>
 </html>
