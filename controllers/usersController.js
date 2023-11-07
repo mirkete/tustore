@@ -1,3 +1,5 @@
+import { errorHandler } from "../utils/errorHandler.js"
+
 export class UsersController {
   constructor({ model }) {
     this.model = model
@@ -6,7 +8,7 @@ export class UsersController {
   registerUser = async (req, res) => {
     const result = await this.model.registerUser(req.body)
 
-    if (!result.success) return res.status(500).send(result.error)
+    if (!result.success) return errorHandler({ error: result.error, res })
 
     res.status(201).send(result.data)
   }
@@ -14,7 +16,7 @@ export class UsersController {
   loginUser = async (req, res) => {
     const result = await this.model.loginUser(req.body)
 
-    if (!result.success) return res.status(500).send(result.error)
+    if (!result.success) return errorHandler({ error: result.error, res })
 
     res.status(200).send(result.data)
   }

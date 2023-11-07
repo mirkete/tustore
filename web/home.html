@@ -55,13 +55,13 @@
           "Authorization": "Bearer " + token
         }
       }).then((res) => {
-        if(!res.ok) throw new Error(res.statusText)
+        if(!res.ok) throw new Error(res.status)
         return res.json()
       })
       .then((userData) => {
         loginNav.innerHTML = `<strong style="padding:20px;"> 🤵 ${userData.username}</strong>`
       })
-      .catch((e) => console.error(e))
+      .catch((e) => {console.error(e)})
     }
   </script>
 </body>

@@ -1,5 +1,6 @@
 import mysql from "mysql2/promise"
 import jwt from "jsonwebtoken"
+import { ValidationError } from "../../utils/errors.js"
 
 const SECRET_KEY = "SECREY_KEY_HERe!"
 
@@ -14,7 +15,7 @@ const connection = await mysql.createConnection({
 export class UsersModel {
   static registerUser = async ({ username, password }) => {
     if (!username || !password) {
-      return { success: false, error: "InvalidRequest" }
+      return { success: false, error: new ValidationError("Invalid request") }
     }
     let token
     try {
@@ -33,7 +34,7 @@ export class UsersModel {
 
   static loginUser = async ({ username, password }) => {
     if (!username || !password) {
-      return { success: false, error: "InvalidRequest" }
+      return { success: false, error: new ValidationError("Invalid request") }
     }
 
     let token
@@ -44,7 +45,7 @@ export class UsersModel {
         [username, password]
       )
       if (result[0].length === 0) {
-        return { success: false, error: "UserNotFound" }
+        return { success: false, error: new ValidationError("User not found") }
       }
       token = jwt.sign({ username, password }, SECRET_KEY)
 
