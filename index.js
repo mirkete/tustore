@@ -1,7 +1,7 @@
 import express from "express"
 import { mainRouter } from "./routes/mainRouter.js"
 import { join } from "path"
-import { UsersModel } from "./models/test/UsersModel.js"
+import { UsersModel } from "./models/sql/UsersModel.js"
 
 const app = express()
 
