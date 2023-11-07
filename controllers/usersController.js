@@ -10,4 +10,12 @@ export class UsersController {
 
     res.status(201).send(result.data)
   }
+
+  loginUser = async (req, res) => {
+    const result = await this.model.loginUser(req.body)
+
+    if (!result.success) return res.status(500).send(result.error)
+
+    res.status(200).send(result.data)
+  }
 }

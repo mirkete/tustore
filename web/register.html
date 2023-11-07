@@ -20,7 +20,7 @@
         </div>
         <div class="login-division">
           <h1 class="section-title">Registrate</h1>
-          <form id="login-form" action="" class="login-form">
+          <form id="register-form" action="" class="login-form">
             <input id="username" class="text-input" type="text" placeholder="Ingrese su nombre de usuario">
             <input id="password" class="text-input" type="password" placeholder="Cree una contraseña">
             <input id="password-confirmation" class="text-input" type="password" placeholder="Confirme su contraseña">
@@ -31,13 +31,13 @@
     </main>
     <footer>Footer</footer>
     <script type="module">
-      const loginForm = document.getElementById("login-form")
+      const registerForm = document.getElementById("register-form")
       const username = document.getElementById("username")
       const password = document.getElementById("password")
       const passwordConfirmation = document.getElementById("password-confirmation")
       const actualUrl = new URL(window.location.href)
 
-      loginForm.addEventListener("submit", (e) => {
+      registerForm.addEventListener("submit", (e) => {
         e.preventDefault()
         if(username.value && password.value){
           fetch(actualUrl.origin + "/register", {
