@@ -19,6 +19,10 @@ export function mainRouter ({ model }) {
     res.sendFile(join(process.cwd(), "web", "register.html"))
   })
 
+  mainRouter.get("/commerce", (req, res) => {
+    res.sendFile(join(process.cwd(), "web", "products.html"))
+  })
+
   mainRouter.post("/register", usersController.registerUser)
 
   mainRouter.get("/login", (req, res) => {
