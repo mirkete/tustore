@@ -1,6 +1,7 @@
 import mysql from "mysql2/promise"
 import jwt from "jsonwebtoken"
 import { ValidationError } from "../../utils/errors.js"
+import crypto from "node:crypto"
 
 const SECRET_KEY = "SECREY_KEY_HERe!"
 
@@ -14,17 +15,18 @@ const connection = await mysql.createConnection({
 
 export class UsersModel {
   static registerUser = async ({ username, password }) => {
+    const userId = crypto.randomUUID()
     if (!username || !password) {
       return { success: false, error: new ValidationError("Invalid request") }
     }
     let token
     try {
       await connection.execute(
-        'INSERT INTO users (username, password) ' +
-        'VALUES (?, ?)',
-        [username, password]
+        'INSERT INTO users (id, username, password) ' +
+        'VALUES (UUID_TO_BIN(?), ?, ?)',
+        [userId, username, password]
       )
-      token = jwt.sign({ username, password }, SECRET_KEY)
+      token = jwt.sign({ userId, username }, SECRET_KEY)
     } catch (e) {
       return { success: false, error: e }
     }
@@ -40,14 +42,15 @@ export class UsersModel {
     let token
     try {
       const result = await connection.execute(
-        'SELECT username, password FROM users ' +
+        'SELECT BIN_TO_UUID(id) AS id, username FROM users ' +
         'WHERE username = ? AND password = ?',
         [username, password]
       )
       if (result[0].length === 0) {
         return { success: false, error: new ValidationError("User not found") }
       }
-      token = jwt.sign({ username, password }, SECRET_KEY)
+      const userData = result[0][0]
+      token = jwt.sign(userData, SECRET_KEY)
 
     } catch (e) {
       return { success: false, error: e }
