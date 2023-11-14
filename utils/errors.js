@@ -6,3 +6,10 @@ export class ValidationError extends Error {
   }
 }
 
+export class DatabaseError extends Error {
+  constructor(message) {
+    super()
+    this.name = "DatabaseError"
+    this.message = message
+  }
+}

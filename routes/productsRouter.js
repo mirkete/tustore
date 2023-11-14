@@ -6,6 +6,7 @@ export function productsRouter ({ model }) {
   const productsController = new ProductsController({ model })
 
   productsRouter.get("/", productsController.getAllProducts)
+  productsRouter.get("/:storeId", productsController.getStoreProducts)
 
   return productsRouter
 }
