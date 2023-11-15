@@ -36,6 +36,16 @@ h1{
   color: rgb(71, 71, 71);
 }
 
+.small-text{
+  font-size: 14px;
+  font-weight: 500;
+  color: rgb(71, 71, 71);
+}
+
+.price{
+  font-weight: 700;
+}
+
 .anchor, .button{
   text-decoration: none;
   border: none;
