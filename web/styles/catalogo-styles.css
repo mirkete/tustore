@@ -2,10 +2,18 @@
   justify-content: flex-start;
   flex-flow: column nowrap;
   gap: 20px;
+  overflow: auto;
+  min-height: 90vh;
 }
 
 .catalogo-panel{
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
+}
+
+@media (min-width:650px){
+  .floating-button{
+    position: initial;
+  }
 }

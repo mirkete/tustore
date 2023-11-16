@@ -146,6 +146,7 @@ ul{
   border-spacing: 0;
   border-radius: 10px;
   overflow: hidden;
+  box-shadow: 0px 0px 8px -2px rgb(0,0,0,.3);
 }
 
 .table td{
@@ -160,4 +161,10 @@ ul{
 
 .table tbody tr:nth-child(even){
   background-color: var(--violet-white);
+}
+
+.floating-button{
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
 }

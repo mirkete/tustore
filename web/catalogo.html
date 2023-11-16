@@ -16,7 +16,7 @@
     <section class="page-section catalogo-section">
       <div class="catalogo-panel">
         <h1>Tus productos</h1>
-        <button class="button button-primary">+ Agregar productos</button>
+        <button class="floating-button button button-primary">+ Agregar productos</button>
       </div>
       <table class="table">
         <thead class="thead">
@@ -31,6 +31,7 @@
         </tbody>
       </table>
     </section>
+    <footer>Footer</footer>
   </div>
   <script>
     const actualURL = new URL(window.location.href)
@@ -40,7 +41,7 @@
 
     function generateProduct(product, i){
       const {product_name:name, product_price:price} = product
-      const template = `<tr><td>${i+1}</td><td>${name}</td><td>$${price}</td><td></td></tr>` 
+      const template = `<tr><td>${i+1}</td><td class="product-name">${name}</td><td>$${price}</td><td></td></tr>` 
 
       tableBody.innerHTML += template
     }

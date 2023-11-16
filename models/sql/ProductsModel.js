@@ -46,11 +46,12 @@ export class ProductsModel {
     try {
       result = await connection.execute(
         'SELECT shop_name, product_name, product_price FROM shops ' +
-        'INNER JOIN products ON products.product_shop = shops.shop_id ',
-        'WHERE BIN_TO_UUID(shop_owner) = ?'
+        'INNER JOIN products ON products.product_shop = shops.shop_id ' +
+        'WHERE BIN_TO_UUID(shop_owner) = ?',
         [userId]
       )
     } catch (error) {
+      console.log(error)
       return { success: false, error }
     }
 
