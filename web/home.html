@@ -19,10 +19,10 @@
     </header>
     <main>
       <section class="page-section landing-section">
-        <div>
-          <h1 class="title">Lorem ipsum dolor</h1>
-          <p class="normal-text">Product description inserted here</p>
-          <a class="anchor anchor-primary" href="/commerce">See products</a>
+        <div class="landing-text">
+          <h1 class="title">Tu propia tienda</h1>
+          <p class="normal-text">Compra y vende. Sin limitaciones</p>
+          <a class="anchor anchor-primary" href="/commerce">Ver productos</a>
         </div>
         <div class="img-container">
           <img class="landing-image" src="/images/imagen.svg" alt="">
@@ -60,7 +60,10 @@
         return res.json()
       })
       .then((userData) => {
-        loginNav.innerHTML = `<strong style="padding:20px;"> 🤵 ${userData.username}</strong>`
+        loginNav.innerHTML = `
+        <strong style="padding:20px;"> 🤵 ${userData.username}</strong>
+        <a class="anchor anchor-secondary anchor-nobackground" href="/catalogo">Administrar catalogo</a>
+        `
       })
       .catch((e) => {console.error(e)})
     }

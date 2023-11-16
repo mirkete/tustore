@@ -20,4 +20,12 @@ export class UsersController {
 
     res.status(200).send(result.data)
   }
+
+  getUserProducts = async (req, res) => {
+    const result = await this.model.getUserProducts(req.body)
+
+    if (!result.success) return errorHandler({ error: result.error, res })
+
+    res.status(200).send(result.data)
+  }
 }

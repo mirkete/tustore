@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tus productos - TuStore</title>
+  <link rel="stylesheet" href="./styles/styles.css">
+  <link rel="stylesheet" href="./styles/catalogo-styles.css">
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <strong>Logo</strong>
+    </header>
+    <section class="page-section catalogo-section">
+      <div class="catalogo-panel">
+        <h1>Tus productos</h1>
+        <button class="button button-primary">+ Agregar productos</button>
+      </div>
+      <table class="table">
+        <thead class="thead">
+          <tr>
+            <td>#</td>
+            <td>Nombre del producto</td>
+            <td>Precio del producto</td>
+            <td>Funciones</td>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+        </tbody>
+      </table>
+    </section>
+  </div>
+  <script>
+    const actualURL = new URL(window.location.href)
+    const queryURL = actualURL.origin + "/products/user-products"
+    const tableBody = document.getElementById("table-body")
+    const token = localStorage.getItem("token")
+
+    function generateProduct(product, i){
+      const {product_name:name, product_price:price} = product
+      const template = `<tr><td>${i+1}</td><td>${name}</td><td>$${price}</td><td></td></tr>` 
+
+      tableBody.innerHTML += template
+    }
+
+    fetch(queryURL, {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    })
+    .then((res) => {
+      if (!res.ok) throw new Error("Ha ocurrido un error")
+      return res.json()
+    })
+    .then((products) => {
+      const shopName = products[0].shop_name
+
+      products.forEach((product, i) => generateProduct(product, i))
+    })
+  </script>
+</body>
+</html>

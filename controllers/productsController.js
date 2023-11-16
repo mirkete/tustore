@@ -13,9 +13,10 @@ export class ProductsController {
     res.status(200).json(result.data)
   }
 
-  getStoreProducts = async (req, res) => {
-    const { storeId } = req.params
-    const result = await this.model.getStoreProducts(storeId)
+  getUserProducts = async (req, res) => {
+    const { id } = req.user
+    const result = await this.model.getUserProducts(id)
+
     if (!result.success) return errorHandler({ error: result.error, res })
 
     return res.status(200).json(result.data)

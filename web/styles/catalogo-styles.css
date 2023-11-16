@@ -1,0 +1,11 @@
+.catalogo-section{
+  justify-content: flex-start;
+  flex-flow: column nowrap;
+  gap: 20px;
+}
+
+.catalogo-panel{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}

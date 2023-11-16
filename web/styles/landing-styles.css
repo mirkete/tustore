@@ -8,6 +8,13 @@
   flex-wrap: wrap-reverse;
 }
 
+.landing-text{
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  padding: 10px;
+}
+
 .second-section{
   background-color: rgb(244, 241, 247);
   gap: 20px;
@@ -28,7 +35,7 @@
   justify-content: center;
 }
 
-@media (min-width:900px){
+@media (min-width:800px){
   .landing-image{
     width: 500px;
   }
