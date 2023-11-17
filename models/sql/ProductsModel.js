@@ -1,5 +1,7 @@
 import mysql from "mysql2/promise"
+import jwt from "jsonwebtoken"
 import { DatabaseError } from "../../utils/errors.js"
+import { validateProduct } from "../../schemas/Product.js"
 
 const connection = await mysql.createConnection({
   host: "localhost",
@@ -7,6 +9,8 @@ const connection = await mysql.createConnection({
   password: "mirkito18",
   database: "store"
 })
+
+const SECRET_KEY = "SECREY_KEY_HERe!"
 
 export class ProductsModel {
 
@@ -51,10 +55,29 @@ export class ProductsModel {
         [userId]
       )
     } catch (error) {
-      console.log(error)
       return { success: false, error }
     }
 
     return { success: true, data: result[0] }
+  }
+
+  static addProduct = async (product, shopId) => {
+    const validationResult = await validateProduct(product)
+    if (!validationResult.success) {
+      return { success: false, error: validationResult.error }
+    }
+
+    const { name, price } = validationResult.data
+    try {
+      await connection.execute(
+        'INSERT INTO products (product_name, product_price, product_shop) ' +
+        'VALUES (?, ?, UUID_TO_BIN(?))',
+        [name, price, shopId]
+      )
+    } catch (error) {
+      return { success: false, error }
+    }
+
+    return { success: true, data: { name, price } }
   }
 }

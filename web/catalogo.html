@@ -9,16 +9,29 @@
   <link rel="stylesheet" href="./styles/catalogo-styles.css">
 </head>
 <body>
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <strong>Agregar un producto</strong>
+      <form id="new-product-form" class="form" action="">
+        <input id="name" class="text-input catalogo-input" type="text" placeholder="Nombre del producto">
+        <input id="price" class="text-input catalogo-input" type="number" placeholder="Precio del producto">
+        <label class="label-image" for="image">🖼️ Seleccionar imagen (opcional)</label>
+        <input class="input-image" id="image" name="image" type="file" accept="image/*" value="Imagen">
+        <button class="button button-primary" type="submit">Agregar producto</button>
+        <button id="close" class="button button-secondary anchor-nobackground" type="submit">X Descartar</button>
+      </form>
+    </div>
+  </div>
   <div class="wrapper">
     <header>
       <strong>Logo</strong>
     </header>
-    <section class="page-section catalogo-section">
+    <section id="catalogo-section" class="page-section catalogo-section">
       <div class="catalogo-panel">
         <h1>Tus productos</h1>
-        <button class="floating-button button button-primary">+ Agregar productos</button>
+        <button id="modal-activator" class="floating-button button button-primary">+ Agregar productos</button>
       </div>
-      <table class="table">
+      <table id="table" class="table">
         <thead class="thead">
           <tr>
             <td>#</td>
@@ -38,6 +51,21 @@
     const queryURL = actualURL.origin + "/products/user-products"
     const tableBody = document.getElementById("table-body")
     const token = localStorage.getItem("token")
+    const modal = document.getElementById("modal")
+    const modalActivator = document.getElementById("modal-activator")
+    const close = document.getElementById("close")
+    const newProdForm = document.getElementById("new-product-form")
+    const table = document.getElementById("table")
+    const catalogoSection = document.getElementById("catalogo-section")
+
+    function showNoProducts(){
+      table.style.display = "none"
+      catalogoSection.innerHTML += `<strong style="align-self:center;">Todavia no tienes productos 😢 </strong>`
+    }
+
+    function closeModal(){
+      modal.style.display = "none"
+    }
 
     function generateProduct(product, i){
       const {product_name:name, product_price:price} = product
@@ -45,6 +73,21 @@
 
       tableBody.innerHTML += template
     }
+
+    close.addEventListener("click", () => closeModal())
+  
+    modalActivator.addEventListener("click", () => {
+      modal.style.display = "grid"
+    })
+
+    
+    window.addEventListener("click", (e) => {
+      if(e.target == modal) closeModal()
+    })
+
+    newProdForm.addEventListener("submit", (e) => {
+      e.preventDefault()
+    })
 
     fetch(queryURL, {
       headers: {
@@ -56,8 +99,9 @@
       return res.json()
     })
     .then((products) => {
-      const shopName = products[0].shop_name
-
+      if(products.length === 0){
+        return showNoProducts()
+      }
       products.forEach((product, i) => generateProduct(product, i))
     })
   </script>
