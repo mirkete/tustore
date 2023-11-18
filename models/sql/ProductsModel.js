@@ -81,3 +81,8 @@ export class ProductsModel {
     return { success: true, data: { name, price } }
   }
 }
+
+export async function finishProductsConnection () {
+  await connection.end()
+  return "off"
+}

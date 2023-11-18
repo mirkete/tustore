@@ -1,7 +1,8 @@
 import mysql from "mysql2/promise"
 import jwt from "jsonwebtoken"
-import { ValidationError } from "../../utils/errors.js"
 import crypto from "node:crypto"
+import { ValidationError } from "../../utils/errors.js"
+import { validateUser } from "../../schemas/User.js"
 
 const SECRET_KEY = "SECREY_KEY_HERe!"
 
@@ -42,9 +43,8 @@ export class UsersModel {
   }
 
   static loginUser = async ({ username, password }) => {
-    if (!username || !password) {
-      return { success: false, error: new ValidationError("Invalid request") }
-    }
+    const validation = await validateUser({ username, password })
+    if (!validation.success) return { success: false, error: new ValidationError(validation.error.message) }
 
     let token
     try {
@@ -66,4 +66,9 @@ export class UsersModel {
 
     return { success: true, data: token }
   }
+}
+
+export async function finishUsersConnection () {
+  await connection.end()
+  return "off"
 }
