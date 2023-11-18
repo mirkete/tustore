@@ -12,8 +12,8 @@ POST http://localhost:3000/login
 Content-Type: application/json
 
 {
-  "username": "mirko",
-  "password": "mirko"
+  "username": "test",
+  "password": "test123"
 }
 
 ###
@@ -26,3 +26,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1pc
 GET http://localhost:3000/products/user-products
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1pcmtvIiwicGFzc3dvcmQiOiJtaXJrbyIsImlhdCI6MTY5OTM2NzE4Mn0.GEvnxTZjxoqY_svaEJAX-A3ON44IBlH303o0Tt3QEog
 
+###
+
+POST http://localhost:3000/products/add-product
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijg2NzJhNTQzLTdkYjItMTFlZS05ZDdiLTRjZWRmYjQ2OGNlMiIsInVzZXJuYW1lIjoidGVzdCIsInNob3BJZCI6ImY5M2RhNzY1LTgxYWUtMTFlZS1iMzc2LTRjZWRmYjQ2OGNlMiIsImlhdCI6MTcwMDI1NzIyNX0.rXXprOcsz-4qyUAGGCPZ2BZWk3M1oTToATVI1FM_X2A
+Content-Type: application/json
+
+{
+  "name": "Test product",
+  "price": 5500
+}

@@ -15,7 +15,7 @@ function checkLogin () {
     } catch (e) {
       return errorHandler({ res, error: new ValidationError("UNAUTHORIZED") })
     }
-    req.user = { username: userData.username, id: userData.id }
+    req.user = { username: userData.username, id: userData.id, shopId: userData.shopId }
     next()
   }
 }

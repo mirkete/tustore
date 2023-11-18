@@ -8,6 +8,7 @@ export function productsRouter ({ model }) {
 
   productsRouter.get("/", productsController.getAllProducts)
   productsRouter.get("/user-products", checkLogin(), productsController.getUserProducts)
+  productsRouter.post("/add-product", checkLogin(), productsController.addProduct)
 
   return productsRouter
 }
