@@ -25,9 +25,8 @@ export class ProductsController {
   addProduct = async (req, res) => {
     const { shopId } = req.user
     const result = await this.model.addProduct(req.body, shopId)
+    if (!result.success) return errorHandler({ error: result.error, res })
 
-    if (!result.success) return errorHandler({ error: result.error })
-
-    res.status(200).json(result.data)
+    res.status(201).json(result.data)
   }
 }

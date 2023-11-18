@@ -13,8 +13,8 @@
     <div class="modal-content">
       <strong>Agregar un producto</strong>
       <form id="new-product-form" class="form" action="">
-        <input id="name" class="text-input catalogo-input" type="text" placeholder="Nombre del producto">
-        <input id="price" class="text-input catalogo-input" type="number" placeholder="Precio del producto">
+        <input id="name" maxlength="36" class="text-input catalogo-input" type="text" placeholder="Nombre del producto">
+        <input id="price" class="text-input catalogo-input" type="number" min="0" placeholder="Precio del producto">
         <label class="label-image" for="image">🖼️ Seleccionar imagen (opcional)</label>
         <input class="input-image" id="image" name="image" type="file" accept="image/*" value="Imagen">
         <button class="button button-primary" type="submit">Agregar producto</button>
@@ -57,29 +57,56 @@
     const newProdForm = document.getElementById("new-product-form")
     const table = document.getElementById("table")
     const catalogoSection = document.getElementById("catalogo-section")
-
+    const name = document.getElementById("name")
+    const price = document.getElementById("price")
+    
+    
     function showNoProducts(){
       table.style.display = "none"
-      catalogoSection.innerHTML += `<strong style="align-self:center;">Todavia no tienes productos 😢 </strong>`
+      catalogoSection.insertAdjacentHTML("beforeend", `<strong style="align-self:center;">Todavia no tienes productos 😢 </strong>`)
     }
 
     function closeModal(){
       modal.style.display = "none"
     }
 
-    function generateProduct(product, i){
-      const {product_name:name, product_price:price} = product
-      const template = `<tr><td>${i+1}</td><td class="product-name">${name}</td><td>$${price}</td><td></td></tr>` 
-
-      tableBody.innerHTML += template
-    }
-
-    close.addEventListener("click", () => closeModal())
-  
+    
     modalActivator.addEventListener("click", () => {
       modal.style.display = "grid"
     })
+    
+    let lastProductIndex = 0
+    
+    function generateProduct(product, i){
+      const {product_name:name, product_price:price} = product
+      const template = `<tr><td>${i+1}</td><td class="product-name">${name}</td><td>$${price}</td><td></td></tr>` 
+      
+      lastProductIndex = i
+      tableBody.insertAdjacentHTML("beforeend", template)
+    }
+    
+    function createProduct({name, price}){
+      fetch(actualURL.origin + "/products/add-product", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({name,price})
+      })
+      .then((res) => {
+        if(res.status === 201) return res.json()
+        closeModal()
+      }).then((data) => {
+        generateProduct({product_name: data.name, product_price:data.price}, lastProductIndex)
+        closeModal()
+      })
+      .catch((err) => {
+        closeModal()
+      })
+    }
 
+    close.addEventListener("click", () => closeModal())
     
     window.addEventListener("click", (e) => {
       if(e.target == modal) closeModal()
@@ -87,6 +114,9 @@
 
     newProdForm.addEventListener("submit", (e) => {
       e.preventDefault()
+      if(name.value && price.value){
+        createProduct({name:name.value, price: price.value})
+      }
     })
 
     fetch(queryURL, {
@@ -99,6 +129,7 @@
       return res.json()
     })
     .then((products) => {
+      console.log(products)
       if(products.length === 0){
         return showNoProducts()
       }

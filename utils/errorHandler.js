@@ -14,6 +14,7 @@ const errorsResponses = {
 }
 
 function errorHandler ({ error, res }) {
+  console.log(error)
   const errorResponse = errorsResponses[error.name] ?? errorsResponses["DefaultError"]
   return errorResponse(res, error.name)
 }
