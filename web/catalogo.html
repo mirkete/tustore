@@ -18,7 +18,7 @@
         <label class="label-image" for="image">🖼️ Seleccionar imagen (opcional)</label>
         <input class="input-image" id="image" name="image" type="file" accept="image/*" value="Imagen">
         <button class="button button-primary" type="submit">Agregar producto</button>
-        <button id="close" class="button button-secondary anchor-nobackground" type="submit">X Descartar</button>
+        <button style="align-self: center;" id="close" class="button button-secondary anchor-nobackground">X Descartar</button>
       </form>
     </div>
   </div>
@@ -59,6 +59,7 @@
     const catalogoSection = document.getElementById("catalogo-section")
     const name = document.getElementById("name")
     const price = document.getElementById("price")
+    const imageList = document.getElementById("image")
     
     
     function showNoProducts(){
@@ -85,14 +86,18 @@
       tableBody.insertAdjacentHTML("beforeend", template)
     }
     
-    function createProduct({name, price}){
+    function createProduct({name, price, image}){
+      const formData = new FormData()
+      formData.set("name", name)
+      formData.set("price", price)
+      formData.set("image", image)
+      
       fetch(actualURL.origin + "/products/add-product", {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json"
+          "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify({name,price})
+        body: formData
       })
       .then((res) => {
         if(res.status === 201) return res.json()
@@ -114,8 +119,9 @@
 
     newProdForm.addEventListener("submit", (e) => {
       e.preventDefault()
-      if(name.value && price.value){
-        createProduct({name:name.value, price: price.value})
+      const image = imageList.files[0]
+      if(name.value && price.value && image){
+        createProduct({name:name.value, price: price.value, image})
       }
     })
 
@@ -129,7 +135,6 @@
       return res.json()
     })
     .then((products) => {
-      console.log(products)
       if(products.length === 0){
         return showNoProducts()
       }

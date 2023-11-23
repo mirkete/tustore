@@ -47,7 +47,6 @@ test("Get user products", async () => {
 
 
 test("Turn off DB's connections", async (t) => {
-
   await t.test("Turn off Users Connection", async () => {
     const connectionStatus = await finishProductsConnection()
     assert.strictEqual(connectionStatus, "off")
