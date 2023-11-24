@@ -23,6 +23,7 @@ export class ProductsController {
   }
 
   addProduct = async (req, res) => {
+    //req.file contains file info (including file buffer)
     const { shopId } = req.user
     const result = await this.model.addProduct(req.body, shopId)
     if (!result.success) return errorHandler({ error: result.error, res })
