@@ -9,7 +9,7 @@ const SECRET_KEY = "SECREY_KEY_HERe!"
 let TEST_CREDENTIALS = {
   username: "test",
   password: "test123",
-  id: '8672a543-7db2-11ee-9d7b-4cedfb468ce2'
+  id: '7676571f-d6c5-4797-a6ad-f37737ac86da' //switch if DB changed
 }
 
 test("Log user", async (t) => {
@@ -37,7 +37,7 @@ test("Reject invalid user login", async () => {
 test("Get user products", async () => {
   const result = await ProductsModel.getUserProducts(TEST_CREDENTIALS.id)
   const expectedProducts = [{
-    shop_name: "Test Shop",
+    shop_name: "Tienda de test",
     product_name: "Test product",
     product_price: 256
   }]

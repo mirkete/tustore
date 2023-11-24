@@ -32,9 +32,9 @@ export class UsersModel {
       await connection.execute(
         'INSERT INTO shops (shop_name, shop_owner, shop_id) ' +
         'VALUES (?, UUID_TO_BIN(?), UUID_TO_BIN(?))',
-        [shopName, username, shopId]
+        [shopName, userId, shopId]
       )
-      token = jwt.sign({ userId, username, shopId }, SECRET_KEY)
+      token = jwt.sign({ id:userId, username, shopId }, SECRET_KEY)
     } catch (e) {
       return { success: false, error: e }
     }
