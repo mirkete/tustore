@@ -8,7 +8,7 @@ function filterFileType (req, file, cb) {
 }
 
 const storage = multer.memoryStorage()
-const upload = multer({ storage })
+const upload = multer({ storage, fileFilter: filterFileType })
 
 export function handleImage () {
   return upload.single("image")
