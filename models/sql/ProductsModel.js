@@ -15,14 +15,21 @@ const SECRET_KEY = "SECREY_KEY_HERe!"
 
 export class ProductsModel {
 
-  static getAllProducts = async () => {
+  static getAllProducts = async (productName) => {
+
+    const nameWithSign = `%${productName}%`
+    const condition = productName ? `WHERE product_name LIKE ? ` : ""
+    const values = productName ? [nameWithSign] : null
+
     let result
     try {
       result = await connection.execute(
         'SELECT BIN_TO_UUID(product_id) AS product_id, ' +
         'product_name, BIN_TO_UUID(product_shop) AS product_shop, ' +
         'product_price, product_image FROM products ' +
-        'LIMIT 10'
+        condition + 
+        'LIMIT 10',
+        values
       )
     } catch (error) {
       return { success: false, error: new DatabaseError(error) }

@@ -1,6 +1,26 @@
 const actualURL = new URL(window.location.href)
 const productsApiURL = actualURL.origin + "/products"
 const productsSection = document.getElementById("products-section")
+const searchForm = document.getElementById("search-form")
+const searchContent = document.getElementById("search-content")
+
+searchForm.addEventListener("submit", (e) => {
+    e.preventDefault()
+    const searchValue = searchContent.value
+    if(searchValue){
+        const searchURL = actualURL.origin + `/products?name=${searchValue}`
+        fetch(searchURL)
+        .then((res) => {
+            if(!res.ok) throw new Error()
+            return res.json()
+        })
+        .then((products) => {
+            productsSection.innerHTML = ""
+            products.forEach((product) => generateProduct(product))
+        })
+    }
+    searchContent.value = ""
+})
 
 function generateProduct(product){
     const {product_name:name, product_price:price, product_image:imageURL} = product

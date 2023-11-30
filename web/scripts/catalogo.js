@@ -15,7 +15,7 @@ const imageList = document.getElementById("image")
 
 function showNoProducts(){
     table.style.display = "none"
-    catalogoSection.insertAdjacentHTML("beforeend", `<strong style="align-self:center;">Todavia no tienes productos 😢 </strong>`)
+    catalogoSection.insertAdjacentHTML("beforeend", `<strong id="no-products" style="align-self:center;">Todavia no tienes productos 😢 </strong>`)
 }
 
 function closeModal(){
@@ -30,6 +30,10 @@ modalActivator.addEventListener("click", () => {
 let lastProductIndex = 0
 
 function generateProduct(product, i){
+    if(table.style.display === "none"){
+        table.style.display = "table"
+        document.getElementById("no-products").style.display = "none"
+    }
     const {product_name:name, product_price:price} = product
     const template = `<tr><td>${i+1}</td><td class="product-name">${name}</td><td>$${price}</td><td></td></tr>` 
     

@@ -55,6 +55,7 @@ main{
   display: grid;
   gap: 60px 48px;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-rows: minmax(70vh, auto);
 }
 
 .product{
@@ -73,11 +74,6 @@ main{
   place-items: center;
   margin: 0;
   padding: 0;
-}
-
-.product-image > img{
-  position: absolute;
-  height: 100%;
 }
 
 .product-description{

@@ -6,7 +6,8 @@ export class ProductsController {
   }
 
   getAllProducts = async (req, res) => {
-    const result = await this.model.getAllProducts()
+
+    const result = await this.model.getAllProducts(req.query.name)
 
     if (!result.success) return errorHandler({ error: result.error, res })
 
